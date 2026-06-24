@@ -242,8 +242,8 @@
                     </TextBlock>
                     <TextBlock Text="开源地址" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,4"/>
                     <TextBlock FontSize="10" HorizontalAlignment="Center" Opacity="0.6">
-                        <Hyperlink NavigateUri="https://github.com/Zhao-Yi9027/OPPO-Pods-Win" RequestNavigate="Hyperlink_RequestNavigate">
-                            github.com/Zhao-Yi9027/OPPO-Pods-Win
+                        <Hyperlink NavigateUri="https://github.com/Zhaoyi-ya/OPPO-Pods-For-Windows" RequestNavigate="Hyperlink_RequestNavigate">
+                            github.com/Zhaoyi-ya/OPPO-Pods-For-Windows
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
