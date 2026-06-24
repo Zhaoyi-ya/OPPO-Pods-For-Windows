@@ -183,6 +183,13 @@
                         <ComboBoxItem Content="兼容 (28+06)"/>
                     </ComboBox>
 
+                    <TextBlock Text="主题" FontSize="12" Margin="0,0,0,2" HorizontalAlignment="Center"/>
+                    <ComboBox x:Name="CbTheme" SelectionChanged="CbTheme_Changed" Height="30" Padding="8,0" Margin="0,0,0,12">
+                        <ComboBoxItem Content="跟随系统"/>
+                        <ComboBoxItem Content="深色"/>
+                        <ComboBoxItem Content="浅色"/>
+                    </ComboBox>
+
                     <CheckBox x:Name="CbTray" Content="关闭到托盘：关闭窗口时最小化到系统托盘" Margin="0,0,0,8"
                               Checked="CbTray_Changed" Unchecked="CbTray_Changed"/>
                     <CheckBox x:Name="CbAuto" Content="开机自启：系统启动时自动运行" Margin="0,0,0,12"

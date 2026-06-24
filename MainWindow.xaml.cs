@@ -53,6 +53,13 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     public MainWindow()
     {
+        InitializeComponent();
+
+        // 主题：默认跟随系统
+        var themeIndex = (int?)Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\OppoPodsWin")?.GetValue("Theme") ?? 0;
+        ApplyTheme(themeIndex);
+        CbTheme.SelectedIndex = themeIndex;
+
         // 开机自启时最小化启动
         var args = Environment.GetCommandLineArgs();
         if (args.Contains("--minimized"))
@@ -61,7 +68,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             Visibility = Visibility.Hidden;
         }
 
-        InitializeComponent();
+        // 固定在屏幕右下角
 
         // 固定在屏幕右下角
         Loaded += (_, _) =>
@@ -415,6 +422,31 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     {
         _gameModeCompat = CbGameMode.SelectedIndex == 1;
         WriteRegBool(AppConst.RegBase, "GameModeCompat", _gameModeCompat);
+    }
+
+    private void CbTheme_Changed(object s, SelectionChangedEventArgs e)
+    {
+        var idx = CbTheme.SelectedIndex;
+        ApplyTheme(idx);
+        try { Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\OppoPodsWin").SetValue("Theme", idx); } catch { }
+    }
+
+    private static void ApplyTheme(int index)
+    {
+        switch (index)
+        {
+            case 0: // 自动
+                Wpf.Ui.Appearance.ApplicationThemeManager.ApplySystemTheme();
+                if (Application.Current.MainWindow is MainWindow mw)
+                    Wpf.Ui.Appearance.SystemThemeWatcher.Watch(mw);
+                break;
+            case 1: // 深色
+                Wpf.Ui.Appearance.ApplicationThemeManager.Apply(Wpf.Ui.Appearance.ApplicationTheme.Dark);
+                break;
+            case 2: // 浅色
+                Wpf.Ui.Appearance.ApplicationThemeManager.Apply(Wpf.Ui.Appearance.ApplicationTheme.Light);
+                break;
+        }
     }
 
     private void TbCustomName_Changed(object s, TextChangedEventArgs e)
